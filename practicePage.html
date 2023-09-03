@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Question Page</title>
+    <link rel="stylesheet" href="practicePage.css">
+    <script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const questionId = urlParams.get('questionId');
+    
+        if (questionId) {
+            fetch(`/getQuestionById/${questionId}`)
+            .then(response => response.json())
+            .then(question => {
+                // Display question name and description
+                document.querySelector('.text').textContent = question.description;
+                document.querySelector('.difficulty').textContent = question.difficulty.charAt(0).toUpperCase() + question.difficulty.slice(1);
+    
+                // Populate the options
+                document.querySelector('#answer0id + span').textContent = question.optiona || 'Option A not found';
+document.querySelector('#answer1id + span').textContent = question.optionb || 'Option B not found';
+document.querySelector('#answer2id + span').textContent = question.optionc || 'Option C not found';
+document.querySelector('#answer3id + span').textContent = question.optiond || 'Option D not found';
+                // Check Answer functionality
+                document.getElementById('checkBtn').addEventListener('click', function() {
+    // get the value of the selected radio button (should be 'A', 'B', 'C', or 'D')
+    const selectedOptionValue = document.querySelector('input[name="answers"]:checked').value;
+
+    if (selectedOptionValue) {
+        if (selectedOptionValue === question.correctanswer) {
+            alert('Correct!');
+        } else {
+            alert('Incorrect! The correct answer is Option ' + question.correctanswer);
+        }
+    } else {
+        alert('Please select an option before checking.');
+    }
+});
+
+
+            });
+        }
+    
+        // Timer functionality
+        let time = 180; 
+        const minTime = 0;  // 3 minutes * 60 seconds
+        const timerDisplay = document.querySelector('.timer');
+    
+        const timerInterval = setInterval(function() {
+            time--;
+            const minutes = Math.floor(time / 60);
+            const seconds = time % 60;
+            timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    
+            if (time <= maxTime) {
+                clearInterval(timerInterval);  // Stop the timer
+                alert('Time is up!');  // Notify the user that time is up (optional)
+            }
+        }, 1000);
+    }
+</script>    
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="question">
+            <div class="header">
+                <span class="difficulty"></span>
+                <span class="timer" id="timer">03:00</span>
+
+            </div>
+            <p class="text"></p>
+
+            <form class="options">
+                <label>
+                    <input type="radio" id="answer0id" name="answers" value="A">
+                    <span>Option A Text</span>
+                </label><br>
+                <label>
+                    <input type="radio" id="answer1id" name="answers" value="B">
+                    <span>Option B Text</span>
+                </label><br>
+                <label>
+                    <input type="radio" id="answer2id" name="answers" value="C">
+                    <span>Option C Text</span>
+                </label><br>
+                <label>
+                    <input type="radio" id="answer3id" name="answers" value="D">
+                    <span>Option D Text</span>
+                </label><br>
+                
+                <button type="button" id="checkBtn">Check Answer</button>
+            </form>
+            
+
+            <div class="result hidden" id="result">
+                <p class="result-message"></p>
+                <button type="button" id="retryBtn">Retry</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

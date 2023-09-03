@@ -1,0 +1,66 @@
+/* Universal Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f2f3f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;  /* Ensures no scrolling */
+}
+
+form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;  /* Increased the width */
+    max-height: 90%;  /* Limit the height to fit within the viewport */
+    overflow-y: auto;  /* Allow scrolling within the form if needed */
+}
+
+label {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    transition: border 0.3s ease;
+}
+
+input[type="text"]:focus, textarea:focus, select:focus {
+    border: 1px solid #42a5f5;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+input[type="submit"] {
+    background-color: #42a5f5;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #1e88e5;
+}
