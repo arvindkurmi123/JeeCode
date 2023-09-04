@@ -3,6 +3,9 @@ const app = express();
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg');
+const {v4 : uuidv4} = require('uuid');
+
+
 // define a port where we will run the application
 let port = 3000;
 
@@ -34,7 +37,7 @@ app.use(methodOverride('_method'));
 
 // add request listener
 app.listen(port,()=>{
-    console.log("listening on port no. 8080");
+    console.log("listening on port no. 3000");
 });
 
 // testing 
@@ -57,7 +60,8 @@ app.post('/StudentRegistered',(req,res)=>{
         if (error) {
             throw error;
         }
-        res.status(200).render('homeBefore.ejs');
+        let wrong = false;
+        res.status(200).render('loginStudent.ejs',{wrong});
     });
 });
 
@@ -77,7 +81,8 @@ app.post('/TeacherRegistered',(req,res)=>{
         if (error) {
             throw error;
         }
-        res.status(200).render('homeBefore.ejs');
+        let wrong = false;
+        res.status(200).render('loginTeacher.ejs',{wrong});
     });
 });
 
@@ -87,7 +92,8 @@ app.post('/TeacherRegistered',(req,res)=>{
 // Student login 
 
 app.get('/studentLogin',(req,res)=>{
-    res.render('loginStudent.ejs');
+    let wrong = false;
+    res.render('loginStudent.ejs',{wrong});
 });
 
 app.post('/StudentLogin',(req,res)=>{
@@ -99,8 +105,31 @@ app.post('/StudentLogin',(req,res)=>{
             console.log(name);
             res.render('homeAfter.ejs',{username});
         }else{
-            let wrong = 'wrong credentials';
+            let wrong = true;
             res.render('loginStudent',{wrong});
+        }
+    });
+});
+
+
+// Teacher login 
+
+app.get('/teacherLogin',(req,res)=>{
+    let wrong = false;
+    res.render('loginTeacher.ejs',{wrong});
+});
+
+app.post('/TeacherLogin',(req,res)=>{
+    const {username,password} = req.body;
+    pool.query('SELECT fullname FROM TeacherRegistrations WHERE username = $1 AND password = $2', [username, password], function (err, result, fields) {
+        if (err) throw err;
+        if(result.rows.length === 1){
+            let name = result.rows[0].fullname;
+            console.log(name);
+            res.render('homeAfter.ejs',{username});
+        }else{
+            let wrong = true;
+            res.render('loginTeacher',{wrong});
         }
     });
 });
@@ -128,3 +157,69 @@ app.post('/UploadQuestion', (req, res) => {
     });
 });
 
+
+
+
+
+let posts = [
+    {   
+        id : uuidv4(),
+        username : 'arvind',
+        content : 'hello i am arvind and i am from sirvaiya family'
+    },
+    {   
+        id:uuidv4(),
+        username : 'ankit',
+        content : 'hello i am ankit and i am from patel family'
+    },
+    {   
+        id:uuidv4(),
+        username : 'jayesh',
+        content : 'hello i am jayesh and i am from unde family'
+    }
+];
+
+
+app.post('/post',(req,res)=>{
+    console.log("new post addition working till post request");
+    console.log(req.body);
+    let {username,content}  = req.body;
+    let id = uuidv4();
+    posts.push({id,username,content});
+    res.redirect('/posts');
+})
+
+app.get('/posts/new',(req,res)=>{
+    res.render('new.ejs');
+});
+
+app.get('/posts',(req,res)=>{
+    res.render('post.ejs',{posts});
+});
+
+app.get('/posts/:id',(req,res)=>{
+    // console.log(req.params);
+    let {id}=  req.params;
+    let post = posts.find((p)=> id == p.id);
+    res.render('show.ejs',{post});
+});
+
+app.get('/posts/:id/edit',(req,res)=>{
+    let {id} = req.params;
+    let post = posts.find((p)=> id===p.id);
+    res.render('edit.ejs',{post});
+});
+
+app.patch('/posts/:id',(req,res)=>{
+    let {id} = req.params;
+    let newContent = req.body.content;
+    let post = posts.find((p)=> id===p.id);
+    post.content = newContent;
+    res.redirect('/posts')
+});
+
+app.delete('/posts/:id',(req,res)=>{
+    let {id} = req.params;
+    posts = posts.filter((p)=> id!==p.id);
+    res.redirect('/posts');
+});
