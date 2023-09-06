@@ -87,7 +87,7 @@ app.post('/TeacherRegistered',(req,res)=>{
 });
 
 // teacher registration end <------
-
+ 
 
 // Student login 
 
@@ -222,4 +222,22 @@ app.delete('/posts/:id',(req,res)=>{
     let {id} = req.params;
     posts = posts.filter((p)=> id!==p.id);
     res.redirect('/posts');
+});
+app.get('/loginChoice',(req,res)=>{
+    let wrong = false;
+    res.render('loginChoice.ejs',{wrong});
+})
+
+app.post('/loginAs',(req,res)=>{
+    const {role} = req.body;
+    console.log(role);
+    let wrong = false;
+    if(role == 'student'){
+        res.render('loginStudent.ejs',{wrong});
+    }else if(role=='teacher'){
+        res.render('loginTeacher.ejs',{wrong});
+    }else{
+        wrong = true;
+        res.render('loginChoice.ejs',{wrong});
+    }
 });
