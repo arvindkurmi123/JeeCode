@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Discussion Forum</title>
+    <link rel="stylesheet" href="discussion.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="forum">
+        <h1>Discussion Forum</h1>
+        <div class="add-post">
+            <button id="addPostBtn">Add Post</button>
+        </div>
+        <div class="question">
+            <h2>Question Title</h2>
+            <p class="author">Posted by: John Doe</p>
+            <p class="content">This is the question content...</p>
+        </div>
+
+        <div class="discussion">
+            <div class="comment">
+                <div class="user-profile">
+                    <img src="user-avatar.jpg" alt="User Avatar">
+                    <p class="username">Jane Smith</p>
+                </div>
+                <div class="comment-content">
+                    <p class="comment-author">Posted by: Jane Smith</p>
+                    <p class="comment-text">I think the answer is...</p>
+                    <div class="comment-actions">
+                        <button class="upvote">Upvote</button>
+                        <button class="downvote">Downvote</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More comments dynamically loaded here -->
+
+            <div class="add-comment">
+                <h3>Add Your Comment</h3>
+                <textarea placeholder="Type your comment here..."></textarea>
+                <button id="postCommentBtn">Post Comment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="discussion.js"></script>
+</body>
+</html>

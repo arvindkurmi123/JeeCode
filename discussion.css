@@ -1,0 +1,126 @@
+/* Your CSS styling for the Discussion Forum goes here */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.forum {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #3498db;
+}
+
+.question h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.author {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.content {
+    font-size: 16px;
+    color: #444;
+}
+
+.discussion {
+    margin-top: 30px;
+}
+
+.comment {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-content {
+    flex-grow: 1;
+}
+
+.comment-text {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.comment-actions {
+    display: flex;
+    align-items: center;
+}
+
+.upvote, .downvote {
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.add-comment {
+    margin-top: 30px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10
+}
+/* Your existing CSS styles */
+
+.add-post {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.add-post button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-post button:hover {
+    background-color: #2980b9;
+}
