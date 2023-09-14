@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Question Page</title>
+    <link rel="stylesheet" type="text/css" href="/CSS/practicePage.css">
+    <script>
+        window.onload = function () {
+
+            // Timer functionality
+            let time = 180;
+            const minTime = 0;  // 3 minutes * 60 seconds
+            const timerDisplay = document.querySelector('.timer');
+
+            const timerInterval = setInterval(function () {
+                time--;
+                const minutes = Math.floor(time / 60);
+                const seconds = time % 60;
+                timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+                if (time <= maxTime) {
+                    clearInterval(timerInterval);  // Stop the timer
+                    alert('Time is up!');  // Notify the user that time is up (optional)
+                }
+            }, 1000);
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="question">
+            <div class="header">
+                <span class="difficulty"></span>
+                <span class="timer" id="timer">03:00</span>
+
+            </div>
+            <div><h2><%= question.name  %></h2></div>
+            <div><h3><%= question.difficulty %></h3></div>
+
+            <p class="text"><%= question.description  %></p>
+
+            <form class="options">
+                <label>
+                    <input type="radio" id="answer0id" name="answers" value="A">
+                    <span>
+                        <%= question.optiona %>
+                    </span>
+                </label><br>
+                <label>
+                    <input type="radio" id="answer1id" name="answers" value="B">
+                    <span>
+                        <%= question.optionb %>
+                    </span>
+                </label><br>
+                <label>
+                    <input type="radio" id="answer2id" name="answers" value="C">
+                    <span>
+                        <%= question.optionc %>
+                    </span>
+                </label><br>
+                <label>
+                    <input type="radio" id="answer3id" name="answers" value="D">
+                    <span>
+                        <%= question.optiond %>
+                    </span>
+                </label><br>
+
+                <button type="button" id="checkBtn">Check Answer</button>
+            </form>
+
+
+            <div class="result hidden" id="result">
+                <p class="result-message"></p>
+                <button type="button" id="retryBtn">Retry</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

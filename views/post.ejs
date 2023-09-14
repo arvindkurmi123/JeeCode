@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>all post</title>
+</head>
+<body>
+    <h1>Jee Questions discussion forum</h1>
+    <% for (post of posts) { %>
+        <h3>@ <%= post.username %></h3>
+        <p> <%= post.content %></p>
+
+        <br>
+        <a href="http://localhost:3000/posts/<%= post.id %>">see in detail</a>
+        <a href="http://localhost:3000/posts/<%= post.id %>/edit">edit</a>
+        <form method="post" action="/posts/<%= post.id %>?_method=DELETE">
+            <button>delete</button>
+        </form>
+    <% } %>
+    <h3><a href="http://localhost:3000/posts/new">create a new discussion</a></h3>
+</body>
+</html>
